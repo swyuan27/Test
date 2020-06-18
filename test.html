@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=UTF-8 />
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    
+      <script type="module">
+        import * as THREE from "https://threejs.org/build/three.module.js";
+        import { OrbitControls } from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
+        import { GLTFLoader } from "https://threejs.org/examples/jsm/loaders/GLTFLoader.js";
+      let scene, camera, renderer;
+
+      function init() {
+        
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(55,window.innerWidth/window.innerHeight,45,30000);
+        camera.position.set(-1000,700,-1100);
+        
+        renderer = new THREE.WebGLRenderer({antialias:true});
+        renderer.setSize(window.innerWidth,window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+        let controls = new OrbitControls(camera,renderer.domElement);
+        controls.addEventListener('change', renderer);
+        /*
+        controls.minDistance = 500;
+        controls.maxDistance = 1500;
+        */
+        let materialArray = [];
+        /*
+        let texture_ft = new THREE.TextureLoader().load( 'arid_ft.jpg');
+        let texture_bk = new THREE.TextureLoader().load( 'arid_bk.jpg');
+        let texture_up = new THREE.TextureLoader().load( 'arid_up.jpg');
+        let texture_dn = new THREE.TextureLoader().load( 'arid_dn.jpg');
+        let texture_rt = new THREE.TextureLoader().load( 'arid_rt.jpg');
+        let texture_lf = new THREE.TextureLoader().load( 'arid_lf.jpg');
+        */
+        let texture_ft = new THREE.TextureLoader().load( 'blizzard_ft.jpg');
+        let texture_bk = new THREE.TextureLoader().load( 'blizzard_bk.jpg');
+        let texture_up = new THREE.TextureLoader().load( 'blizzard_up.jpg');
+        let texture_dn = new THREE.TextureLoader().load( 'blizzard_dn.jpg');
+        let texture_rt = new THREE.TextureLoader().load( 'blizzard_rt.jpg');
+        let texture_lf = new THREE.TextureLoader().load( 'blizzard_lf.jpg');
+        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
+   
+        for (let i = 0; i < 6; i++)
+           materialArray[i].side = THREE.BackSide;
+        let skyboxGeo = new THREE.BoxGeometry( 10000, 10000, 10000);
+        let skybox = new THREE.Mesh( skyboxGeo, materialArray );
+        scene.add( skybox );  
+
+        // Skybox done
+        
+        let loader = new GLTFLoader();
+        loader.load('scene.gltf',function(gltf){
+            let cup = gltf.scene.children[0];
+            cup.scale.set(500,500,500);
+            cup.position.y-=100;
+            scene.add(gltf.scene);
+            renderer.render(scene,camera);
+        });
+        //camera.position.y+=500;
+        //camera.position.x-=100;
+        //camera.rotation.y=+Math.PI/2;
+        //camera.rotation.x-=Math.PI/2
+        let directionalLight = new THREE.DirectionalLight(0xffffff,100);
+        directionalLight.position.set(0,1,0);
+        directionalLight.castShadow = true;
+        scene.add(directionalLight);
+        let hlight = new THREE.AmbientLight (0x404040,4);
+        scene.add(hlight);
+        //-1000,700,-1100
+        /*
+        let light = new THREE.PointLight(0xc4c4c4,1);
+        light.position.set(-1800,900,-1600);
+        scene.add(light);
+        
+        
+        let light2 = new THREE.PointLight(0xc4c4c4,1);
+        light2.position.set(-1300,700,-2100);
+        scene.add(light2);
+        */
+       /*
+        let light3 = new THREE.PointLight(0xc4c4c4,1);
+        light3.position.set(-1800,700,-3100);
+        scene.add(light3);
+        
+        let light4 = new THREE.PointLight(0xc4c4c4,2);
+        light4.position.set(-1300,900,-1600);
+        scene.add(light4);
+        */
+        animate();
+      }
+      function animate() {
+        renderer.render(scene,camera);
+        requestAnimationFrame(animate);
+        //camera.rotation.x+=0.01;
+      }
+      init();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+body{
+    margin: 0;
+    height: 100vh;
+    
+}
+canvas{
+    display: block;
+}
+h1 {
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    font-family: 'Montserrat';
+    font-size: 4em;
+    text-transform: uppercase;
+    width: auto;
+    line-height: .8em;
+    border: 5px solid black;
+    padding: .2em;
+  }
+  button{
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    font-family: 'Montserrat';
+    font-size: 3em;
+    text-transform: uppercase;
+    width: auto;
+    line-height: .8em;
+    border: 5px solid black;
+    padding: .2em;
+  }
+  Center{
+    margin:0 auto;
+    text-align:center;
+    position: absolute;
+    display:inline-block;
+    top: 2em;
+    left: 40%;
+    font-family: 'Montserrat';
+    font-size: 3em;
+    text-transform: uppercase;
+    width: auto;
+    line-height: .8em;
+    border: 5px solid black;
+    padding: .2em;
+  }
